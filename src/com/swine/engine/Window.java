@@ -65,8 +65,11 @@ public final class Window {
 		}
 		Dispatcher.dispatch(() -> {
 			frame = new JFrame((title != null) ? title : "Window", (gd != null) ? gd.getDefaultConfiguration() : null);
-			frame.setLocation((loc != null) ? loc : new Point(0, 0));
 			frame.setSize((size != null) ? size : new Dimension(halfSize.width / 2, halfSize.height / 2));
+			if (loc != null)
+				frame.setLocation(loc);
+			else
+				frame.setLocationRelativeTo(frame);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.addWindowListener(new WindowListenerMod() {
 				@Override
