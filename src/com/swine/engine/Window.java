@@ -28,7 +28,8 @@ public final class Window {
 	private static Window window = null;
 	private static String os;
 	private static double version;
-	private static Spawn spawn = new Spawn();
+	private static final Spawn spawn = new Spawn();
+	private static final Time time = new Time();
 	
 	private String title = null;
 	private boolean run = true;
@@ -37,6 +38,11 @@ public final class Window {
 	private Point loc = null;
 	private Dimension size = null;
 	private Dimension halfSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	private int i = 0;
+	private final double FPS = 1.0d / 60.0d;
+	private double previous = time.getTime();
+	private double steps = 0.0;
 	
 	public JFrame frame;
 	
@@ -88,11 +94,36 @@ public final class Window {
 		// WARNING: Do NOT use JOptionPane as this class YIELDS the thread.
 		spawn.setCallback(() -> {
 			while (run) {
-				ColorUtil.paint(frame.getContentPane(), new Color(0, 0, 0));
-				System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
+				double loopStartTime = time.getTime();
+				double elapsed = loopStartTime - previous;
+				previous = loopStartTime;
+				steps += elapsed;
+				
+				// INPUT
+				
+				while (steps >= FPS) {
+					// UPDATE GAME STATE
+					ColorUtil.paint(frame.getContentPane(), new Color(i, i, i));
+					i++;
+					if (i == 255) i = 0;
+					steps -= FPS;
+					System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
+				}
+				sync(time.getTime());
 			}
 		});
 		spawn.spawnThread().start();
+	}
+	
+	// Prevents the engine from being resource intensive to the CPU and/or GPU
+	private void sync(double loopStartTime) {
+		float loopSlot = 1f / 50;
+		double endTime = loopStartTime + loopSlot; 
+		while(time.getTime() < endTime) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException ie) {}
+		}
 	}
 	
 	private boolean check() {
