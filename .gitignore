@@ -1,7 +1,5 @@
+.classpath
 .git
-.idea
-.metadata
-Swine/bin
-Swine/.classpath
-Swine/.project
-Swine/.settings
+.project
+.settings
+bin
