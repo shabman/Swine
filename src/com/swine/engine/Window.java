@@ -107,7 +107,7 @@ public final class Window {
 				while (steps >= FPS) {
 					// UPDATE GAME STATE
 					ColorUtil.paint(frame.getContentPane(), new Color(i, i, i));
-					i++;
+					i = 1 - -i;
 					if (i == 255) i = 0;
 					steps -= FPS;
 					System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
