@@ -13,6 +13,7 @@ import com.swine.engine.awtmod.WindowListenerMod;
 import com.swine.engine.events.EngineListener;
 import com.swine.engine.thread.Dispatcher;
 import com.swine.engine.thread.Spawn;
+import com.swine.engine.util.ColorUtil;
 import com.swine.engine.util.OS;
 import com.swine.engine.util.Version;
 import com.swine.exceptions.CheckFailedException;
@@ -87,8 +88,7 @@ public final class Window {
 		// WARNING: Do NOT use JOptionPane as this class YIELDS the thread.
 		spawn.setCallback(() -> {
 			while (run) {
-				frame.getContentPane().setBackground(new Color(0, 0, 0));
-				frame.repaint();
+				ColorUtil.paint(frame.getContentPane(), new Color(0, 0, 0));
 				System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
 			}
 		});
