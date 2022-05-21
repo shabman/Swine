@@ -19,4 +19,7 @@
 
 ----------------------------------------
 
+It is recommended that you **do not** fork this project **yet**, it is not ready for use.
+Documentation will be added once near release of v1.0.
+
 **This project is created by shabman (avia.shabbyman@gmail.com) Please see license before use.**
