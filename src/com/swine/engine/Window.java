@@ -110,7 +110,7 @@ public final class Window {
 					i = 1 - -i;
 					if (i == 255) i = 0;
 					steps -= FPS;
-					System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
+					//System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
 				}
 				sync(time.getTime());
 			}
@@ -118,7 +118,7 @@ public final class Window {
 		spawn.spawnThread().start();
 	}
 	
-	// Prevents the engine from being resource intensive to the CPU and/or GPU
+	// Prevents the engine from being resource intensive to the GPU
 	private void sync(double loopStartTime) {
 		float loopSlot = 1f / 60;
 		double endTime = loopStartTime + loopSlot; 
