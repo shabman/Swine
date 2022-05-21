@@ -1,5 +1,7 @@
 package com.swine.engine.events;
 
+import com.swine.engine.constants.InputAction;
+
 /**
  * 
  * @author Mustafa Malik
@@ -12,6 +14,8 @@ public interface Child {
 	void pause();
 	
 	void destroy();
+	
+	void inputRequested(InputAction e, Object args);
 	
 	boolean isActive();
 }

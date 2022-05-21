@@ -5,12 +5,21 @@ import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
 import com.swine.engine.awtmod.WindowListenerMod;
+import com.swine.engine.constants.InputAction;
 import com.swine.engine.events.EngineListener;
+import com.swine.engine.events.InputListener;
 import com.swine.engine.thread.Dispatcher;
 import com.swine.engine.thread.Spawn;
 import com.swine.engine.util.ColorUtil;
@@ -93,6 +102,7 @@ public final class Window {
 		});
 	}
 	
+	
 	private void loop() {
 		// WARNING: Do NOT use JOptionPane as this class YIELDS the thread.
 		spawn.setCallback(() -> {
@@ -103,6 +113,71 @@ public final class Window {
 				steps += elapsed;
 				
 				// INPUT
+				frame.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+					
+				});
+				frame.addMouseMotionListener(new MouseMotionListener() {
+
+					@Override
+					public void mouseDragged(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+
+					@Override
+					public void mouseMoved(MouseEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
+					}
+					
+				});
+				frame.addMouseWheelListener(new MouseWheelListener() {
+
+					@Override
+					public void mouseWheelMoved(MouseWheelEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_MOUSE_SCROLL, e);
+					}				
+				});
+				frame.addKeyListener(new KeyListener() {
+
+					@Override
+					public void keyTyped(KeyEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_KEY_PRESS, e);
+					}
+
+					@Override
+					public void keyPressed(KeyEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_KEY_PRESS, e);
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {
+						InputListener.fireEvent(InputAction.ACTION_KEY_PRESS, e);		
+					}
+				});
 				
 				while (steps >= FPS) {
 					// UPDATE GAME STATE
