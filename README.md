@@ -9,12 +9,12 @@
 
 # To do:
 
-- Game Loop
+- ~~Game Loop~~
 - Renderer
-- Input
+- ~~Input~~
 - Lighting
 - Animation
-- Time
+- ~~Time~~
 - Sprite Batching
 
 ----------------------------------------
