@@ -73,7 +73,7 @@ public final class Window {
 			);
 		}
 		Dispatcher.dispatch(() -> {
-			frame = new JFrame((title != null) ? title : "Window", (gd != null) ? gd.getDefaultConfiguration() : null);
+			frame = new JFrame((title != null) ? title : "Swine 2D Engine", (gd != null) ? gd.getDefaultConfiguration() : null);
 			frame.setSize((size != null) ? size : new Dimension(halfSize.width / 2, halfSize.height / 2));
 			if (loc != null)
 				frame.setLocation(loc);
@@ -86,9 +86,83 @@ public final class Window {
 					EngineListener.fireEvent("destroy");
 				}
 			});
+			frame.addMouseListener(new MouseListener() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_CLICKED, e);
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_PRESSED, e);
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_RELEASED, e);
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_ENTERED, e);
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_EXITED, e);
+				}
+				
+			});
+			frame.addMouseMotionListener(new MouseMotionListener() {
+				@Override
+				public void mouseDragged(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_DRAGGED, e);
+				}
+
+				@Override
+				public void mouseMoved(MouseEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_MOVED, e);
+				}
+				
+			});
+			frame.addMouseWheelListener(new MouseWheelListener() {
+				@Override
+				public void mouseWheelMoved(MouseWheelEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_MOUSE_WHEEL, e);
+				}				
+			});
+			frame.addKeyListener(new KeyListener() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_KEY_TYPED, e);
+				}
+
+				@Override
+				public void keyPressed(KeyEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_KEY_PRESSED, e);
+				}
+
+				@Override
+				public void keyReleased(KeyEvent e) {
+					InputListener.fireEvent(InputAction.ACTION_KEY_RELEASED, e);		
+				}
+			});
 			
 			EngineListener.fireEvent("create");
 			
+			/*
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			Image image;
+			try {
+				image = ImageIO.read(Thread.currentThread().getContextClassLoader().getResourceAsStream("cursor-arrow1.png"));
+				Cursor c = toolkit.createCustomCursor(image , new Point(frame.getContentPane().getX(), 
+						frame.getContentPane().getY()), "img");
+				frame.getContentPane().setCursor (c);
+				
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			*/
 			frame.setVisible(true);
 			
 			loop();
@@ -111,73 +185,6 @@ public final class Window {
 				double elapsed = loopStartTime - previous;
 				previous = loopStartTime;
 				steps += elapsed;
-				
-				// INPUT
-				frame.addMouseListener(new MouseListener() {
-
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-
-					@Override
-					public void mousePressed(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-
-					@Override
-					public void mouseExited(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-					
-				});
-				frame.addMouseMotionListener(new MouseMotionListener() {
-
-					@Override
-					public void mouseDragged(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-
-					@Override
-					public void mouseMoved(MouseEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE, e);
-					}
-					
-				});
-				frame.addMouseWheelListener(new MouseWheelListener() {
-
-					@Override
-					public void mouseWheelMoved(MouseWheelEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_MOUSE_SCROLL, e);
-					}				
-				});
-				frame.addKeyListener(new KeyListener() {
-
-					@Override
-					public void keyTyped(KeyEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_KEY_PRESS, e);
-					}
-
-					@Override
-					public void keyPressed(KeyEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_KEY_PRESS, e);
-					}
-
-					@Override
-					public void keyReleased(KeyEvent e) {
-						InputListener.fireEvent(InputAction.ACTION_KEY_PRESS, e);		
-					}
-				});
 				
 				while (steps >= FPS) {
 					// UPDATE GAME STATE

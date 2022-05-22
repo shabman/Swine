@@ -24,20 +24,10 @@ public class InputListener {
 	}
 	
 	public static void fireEvent(InputAction code, Object data) {
-		switch (code) {
-			case ACTION_MOUSE -> files.forEach(c -> c.inputRequested(InputAction.ACTION_MOUSE, data));
-			case ACTION_MOUSE_MOVE -> files.forEach(c -> c.inputRequested(InputAction.ACTION_MOUSE_MOVE, data));
-			case ACTION_MOUSE_SCROLL -> files.forEach(c -> c.inputRequested(InputAction.ACTION_MOUSE_SCROLL, data));
-			case ACTION_KEY_PRESS -> files.forEach(c -> c.inputRequested(InputAction.ACTION_KEY_PRESS, data));
-		}
+		files.forEach(c -> c.inputRequested(code, data));
 	}
 	
 	public static void fireEventOne(Child c, InputAction code, Object data) {
-		switch (code) {
-			case ACTION_MOUSE -> c.inputRequested(InputAction.ACTION_MOUSE, data);
-			case ACTION_MOUSE_MOVE -> c.inputRequested(InputAction.ACTION_MOUSE_MOVE, data);
-			case ACTION_MOUSE_SCROLL -> c.inputRequested(InputAction.ACTION_MOUSE_SCROLL, data);
-			case ACTION_KEY_PRESS -> c.inputRequested(InputAction.ACTION_KEY_PRESS, data);
-		}
+		c.inputRequested(code, data);
 	}
 }
