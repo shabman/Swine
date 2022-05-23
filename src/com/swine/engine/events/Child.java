@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2022, Mustafa Malik (avia.shabbyman@gmail.com)
+ */
 package com.swine.engine.events;
 
 import com.swine.engine.constants.InputAction;

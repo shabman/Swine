@@ -1,5 +1,13 @@
+/*
+ * Copyright (C) 2022, Mustafa Malik (avia.shabbyman@gmail.com)
+ */
 package com.swine.engine.constants;
 
+/**
+ * 
+ * @author Mustafa Malik
+ * @version 1.0
+ */
 public enum InputAction {
 
 	ACTION_MOUSE_CLICKED(0),

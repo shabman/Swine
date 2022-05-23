@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2022, Mustafa Malik (avia.shabbyman@gmail.com)
+ */
 package com.swine.engine.events;
 
 import java.util.ArrayList;
@@ -5,6 +8,11 @@ import java.util.List;
 
 import com.swine.engine.constants.InputAction;
 
+/**
+ * 
+ * @author Mustafa Malik
+ * @version 1.0
+ */
 public class InputListener {
 	
 	private static final List<Child> files = new ArrayList<>();

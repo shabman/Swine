@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2022, Mustafa Malik (avia.shabbyman@gmail.com)
+ */
 package com.swine.runnable;
 
 import javax.swing.JOptionPane;

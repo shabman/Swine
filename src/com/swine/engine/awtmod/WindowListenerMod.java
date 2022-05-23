@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2022, Mustafa Malik (avia.shabbyman@gmail.com)
+ */
 package com.swine.engine.awtmod;
 
 import java.awt.event.WindowEvent;
@@ -7,7 +10,6 @@ import java.awt.event.WindowListener;
  * 
  * @author Mustafa Malik
  * @version 1.0
- *
  */
 public abstract class WindowListenerMod implements WindowListener {
 
