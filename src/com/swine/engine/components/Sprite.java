@@ -19,4 +19,8 @@ public class Sprite extends JLabel {
 		super(img);
 	}
 	
+	@Override
+	public void setIcon(Icon img) {
+		super.setIcon(img);
+	}
 }

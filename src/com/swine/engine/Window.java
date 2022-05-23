@@ -87,6 +87,7 @@ public final class Window {
 		Dispatcher.dispatch(() -> {
 			frame = new JFrame((title != null) ? title : "Swine 2D Engine", (gd != null) ? gd.getDefaultConfiguration() : null);
 			frame.setSize((size != null) ? size : new Dimension(halfSize.width / 2, halfSize.height / 2));
+			frame.setLayout(null); // Do not change this
 			if (loc != null)
 				frame.setLocation(loc);
 			else
@@ -183,9 +184,7 @@ public final class Window {
 		});
 	}
 	
-	
-	public void loop() {
-		// WARNING: Do NOT use JOptionPane as this class YIELDS the thread.
+	private void loop() {
 		spawn.setCallback(() -> {
 			while (run) {
 				double loopStartTime = time.getTime();
