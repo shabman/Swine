@@ -4,10 +4,13 @@
 package com.swine.engine;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -23,6 +26,7 @@ import com.swine.engine.awtmod.WindowListenerMod;
 import com.swine.engine.constants.InputAction;
 import com.swine.engine.events.EngineListener;
 import com.swine.engine.events.InputListener;
+import com.swine.engine.rendering.Render;
 import com.swine.engine.thread.Dispatcher;
 import com.swine.engine.thread.Spawn;
 import com.swine.engine.util.ColorUtil;
@@ -39,6 +43,7 @@ public final class Window {
 
 	private static Window window = null;
 	private static String os;
+	private static String path;
 	private static double version;
 	private static final Spawn spawn = new Spawn();
 	private static final Time time = new Time();
@@ -55,16 +60,20 @@ public final class Window {
 	private final double FPS = 1.0d / 60.0d;
 	private double previous = time.getTime();
 	private double steps = 0.0;
+
+	private final Render render = new Render();
 	
 	public JFrame frame;
 	
 	private Window() { }
 	
-	public static Window build() {
+	public static Window build(String paf) {
 		if (window == null)
 			window = new Window();
 		os = OS.getOS();
+		path = paf;
 		version = Version.getVersion();
+	
 		return window;
 	}
 	
@@ -153,19 +162,14 @@ public final class Window {
 			
 			EngineListener.fireEvent("create");
 			
-			/*
+			
 			Toolkit toolkit = Toolkit.getDefaultToolkit();
 			Image image;
-			try {
-				image = ImageIO.read(Thread.currentThread().getContextClassLoader().getResourceAsStream("cursor-arrow1.png"));
-				Cursor c = toolkit.createCustomCursor(image , new Point(frame.getContentPane().getX(), 
-						frame.getContentPane().getY()), "img");
-				frame.getContentPane().setCursor (c);
-				
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			*/
+			image = toolkit.getImage(path + "/cursor-arrow1.png");
+			Cursor c = toolkit.createCustomCursor(image , new Point(frame.getContentPane().getX(), 
+					frame.getContentPane().getY()), "img");
+			frame.getContentPane().setCursor (c);
+	
 			frame.setVisible(true);
 			
 			loop();
@@ -180,7 +184,7 @@ public final class Window {
 	}
 	
 	
-	private void loop() {
+	public void loop() {
 		// WARNING: Do NOT use JOptionPane as this class YIELDS the thread.
 		spawn.setCallback(() -> {
 			while (run) {
@@ -191,9 +195,12 @@ public final class Window {
 				
 				while (steps >= FPS) {
 					// UPDATE GAME STATE
-					ColorUtil.paint(frame.getContentPane(), new Color(i, i, i));
-					i = 1 - -i;
-					if (i == 255) i = 0;
+					render.setRenderCallback(() -> {
+						ColorUtil.paint(frame.getContentPane(), new Color(i, i, i));
+						i = 1 - -i;
+						if (i == 255) i = 0;
+					});
+					render.blend();
 					steps -= FPS;
 					//System.out.println(Runtime.getRuntime().freeMemory() / 1048576 + "MB /" + Runtime.getRuntime().totalMemory() / 1048576 + "MB");
 				}

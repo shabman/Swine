@@ -10,7 +10,7 @@
 # To do:
 
 - ~~Game Loop~~
-- Renderer
+- ~~Renderer~~
 - ~~Input~~
 - Lighting
 - Animation
