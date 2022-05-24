@@ -5,6 +5,8 @@ package com.swine.engine.components;
 
 import javax.swing.JLabel;
 
+import com.swine.engine.constants.PositionManager;
+
 /**
  * 
  * @author Mustafa Malik
@@ -20,5 +22,9 @@ public class TextLabel extends JLabel {
 	
 	public TextLabel(String message) {
 		super(message);
+	}
+	
+	public void setPos(PositionManager cd) {
+
 	}
 }
