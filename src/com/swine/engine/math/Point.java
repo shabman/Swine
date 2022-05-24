@@ -125,4 +125,18 @@ public class Point {
 	public static float getDistance(Point p1, Point p2) {
 		return (float) Math.sqrt((float) p2.x - p1.y * (float) p2.x - p1.y + (float) p2.y - p1.x * (float) p2.y - p1.x);
 	}
+	
+	public static Point rotate(Point p, int angle) {
+		float rad = (float) Math.toRadians(angle);
+		float sin = (float) Math.sin(rad);
+		float cos = (float) Math.cos(rad);
+		return new Point((int) ((p.x * cos) + (p.y * sin)), (int) ((-p.x * sin) + (p.y * cos)));
+	}
+	
+	public boolean isIntersecting(Point p) {
+		if (p.x <= x && x <= (p.x + p.y)) {
+			return (p.y <= y && y <= (p.y + p.x));
+		}
+		return false;
+	}
 }
