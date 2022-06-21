@@ -23,6 +23,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 import com.swine.engine.awtmod.WindowListenerMod;
+import com.swine.engine.components.TextLabel;
 import com.swine.engine.constants.InputAction;
 import com.swine.engine.events.EngineListener;
 import com.swine.engine.events.InputListener;
@@ -184,6 +185,8 @@ public final class Window {
 		});
 	}
 	
+	TextLabel t = new TextLabel("AMOGUS");
+	
 	private void loop() {
 		spawn.setCallback(() -> {
 			while (run) {
@@ -198,6 +201,8 @@ public final class Window {
 						ColorUtil.paint(frame.getContentPane(), new Color(i, i, i));
 						i = 1 - -i;
 						if (i == 255) i = 0;
+						t.setBounds(1, frame.getHeight(), 50, 50);
+						frame.add(t);
 					});
 					render.blend();
 					steps -= FPS;

@@ -22,14 +22,16 @@ public class Render {
 		this.getRenderCallback().c();
 	}
 	
-	public void blend(JComponent comp) {
+	public void blend(JComponent comp, boolean useCB) {
 		comp.repaint();
-		this.getRenderCallback().c();
+		if (useCB)
+			this.getRenderCallback().c();
 	}
 	
-	public void blend(Component comp) {
+	public void blend(Component comp, boolean useCB) {
 		comp.repaint();
-		this.getRenderCallback().c();
+		if (useCB)
+			this.getRenderCallback().c();
 	}
 	
 	public void setRenderCallback(RenderC r) {
